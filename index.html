@@ -1,0 +1,141 @@
+components/game/mission-screen.tsx:
+  11      currentMission,
+  12:     currentTeamIndex,
+  13:     currentQuestionIndex,
+  14      scores,
+
+  28    const mission = missions[currentMission]
+  29:   const team = teams[currentTeamIndex]
+  30    const question = getCurrentQuestion()
+
+  34      setShowResult(false)
+  35:   }, [currentMission, currentTeamIndex, currentQuestionIndex])
+  36  
+
+  87                <p className="text-sm text-muted-foreground">
+  88:                 Въпрос {currentQuestionIndex + 1} от 2
+  89                </p>
+
+components/game/results-screen.tsx:
+  60            <div className="space-y-4">
+  61:             {sortedTeams.map((team, index) => (
+  62                <div
+
+  65                    "flex items-center gap-4 p-4 rounded-2xl",
+  66:                   index === 0 && "bg-secondary/30 border-2 border-secondary"
+  67                  )}
+
+  69                  <span className="text-3xl">
+  70:                   {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "🏅"}
+  71                  </span>
+
+components/ui/chart.tsx:
+  181        <div className="grid gap-1.5">
+  182:         {payload.map((item, index) => {
+  183            const key = `${nameKey || item.name || item.dataKey || 'value'}`
+
+  195                {formatter && item?.value !== undefined && item.name ? (
+  196:                 formatter(item.value, item.name, item, index, item.payload)
+  197                ) : (
+
+components/ui/field.tsx:
+  209          {errors.map(
+  210:           (error, index) =>
+  211:             error?.message && <li key={index}>{error.message}</li>,
+  212          )}
+
+components/ui/input-otp.tsx:
+  39  function InputOTPSlot({
+  40:   index,
+  41    className,
+
+  43  }: React.ComponentProps<'div'> & {
+  44:   index: number
+  45  }) {
+  46    const inputOTPContext = React.useContext(OTPInputContext)
+  47:   const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  48  
+
+components/ui/sidebar.tsx:
+  289        aria-label="Toggle Sidebar"
+  290:       tabIndex={-1}
+  291        onClick={toggleSidebar}
+
+components/ui/slider.tsx:
+  47        </SliderPrimitive.Track>
+  48:       {Array.from({ length: _values.length }, (_, index) => (
+  49          <SliderPrimitive.Thumb
+  50            data-slot="slider-thumb"
+  51:           key={index}
+  52            className="border-primary ring-ring/50 block size-4 shrink-0 rounded-full border bg-white shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+
+components/ui/use-toast.ts:
+  176      return () => {
+  177:       const index = listeners.indexOf(setState)
+  178:       if (index > -1) {
+  179:         listeners.splice(index, 1)
+  180        }
+
+hooks/use-toast.ts:
+  176      return () => {
+  177:       const index = listeners.indexOf(setState)
+  178:       if (index > -1) {
+  179:         listeners.splice(index, 1)
+  180        }
+
+lib/game-store.ts:
+   18    currentMission: number
+   19:   currentTeamIndex: number
+   20:   currentQuestionIndex: number
+   21    scores: Record<string, number>
+
+   45    currentMission: 0,
+   46:   currentTeamIndex: 0,
+   47:   currentQuestionIndex: 0,
+   48    scores: Object.fromEntries(teams.map((t) => [t.id, 0])),
+
+   61        currentMission: 0,
+   62:       currentTeamIndex: 0,
+   63:       currentQuestionIndex: 0,
+   64        scores: Object.fromEntries(teams.map((t) => [t.id, 0])),
+
+   72      const state = get()
+   73:     const nextIndex = state.currentTeamIndex + 1
+   74      
+   75:     if (nextIndex >= teams.length) {
+   76        // Move to next question or next mission
+   77:       const nextQuestionIndex = state.currentQuestionIndex + 1
+   78:       if (nextQuestionIndex >= 2) {
+   79          // All questions done for this mission
+
+   84              currentMission: state.currentMission + 1,
+   85:             currentTeamIndex: 0,
+   86:             currentQuestionIndex: 0,
+   87              showHint: false,
+
+   92          set({
+   93:           currentTeamIndex: 0,
+   94:           currentQuestionIndex: nextQuestionIndex,
+   95            showHint: false,
+
+  100        set({
+  101:         currentTeamIndex: nextIndex,
+  102          showHint: false,
+
+  165          currentMission: state.currentMission + 1,
+  166:         currentTeamIndex: 0,
+  167:         currentQuestionIndex: 0,
+  168          showHint: false,
+
+  195        currentMission: 0,
+  196:       currentTeamIndex: 0,
+  197:       currentQuestionIndex: 0,
+  198        scores: Object.fromEntries(teams.map((t) => [t.id, 0])),
+
+  213      
+  214:     const team = teams[state.currentTeamIndex]
+  215      if (!team) return null
+
+  219      
+  220:     return questions[state.currentQuestionIndex] || null
+  221    },
